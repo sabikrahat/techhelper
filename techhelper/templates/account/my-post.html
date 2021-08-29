@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+{% extends 'index.html' %}
+{% block title %}My Posts - Profile{% endblock %}
+{% block content %}
+{% load static %}
+
+<h6></h6>
+<h3>My Posts</h3>
+<hr>
+{% if questions|length %}
+
+{% for qstn in questions %}
+<div class="row">
+    <div class="col-1"></div>
+    <div class="col-8">
+        {% if qstn.9 %}
+        <img src="../../{{qstn.9}}" height="40px"
+            style="border: 3px solid lightblue; padding: 0.1em; border-radius: 50%;"
+            alt="user image" />&ensp;{{qstn.13}}
+        {% else %}
+        <img src="{% static 'others/person.svg' %}" height="32px" style="border-radius: 50%;"
+            alt="user image" />&ensp;{{qstn.13}}
+        {% endif %}
+    </div>
+</div>
+<p></p>
+<div class="row">
+    <div class="col-1"></div>
+    <div class="col-8">
+        <h4>{{qstn.14}}</h4>
+    </div>
+    <div class="col-2"><button type="button" class="btn btn-light disabled"
+            style="margin-bottom: 0.3em;">&ensp;{{qstn.16}}&ensp;</button></div>
+    <div class="col-1"></div>
+</div>
+<div class="row">
+    <div class="col-1"></div>
+    <div class="col-8">
+        <p
+            style="overflow: hidden; text-overflow: ellipsis;display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">
+            {{qstn.15}}</p>
+    </div>
+    <div class="col-2"><button type="button" class="btn btn-outline-primary"
+            onclick="location.href='/view-question/{{qstn.11}}/'">&ensp;&ensp;View&ensp;&ensp;</button>
+    </div>
+    <div class="col-1"></div>
+</div>
+<hr>
+{% endfor %}
+{% else %}
+<div class="custom-center">
+    <br>
+    <h5> Sorry! You haven't post any question yet.</h5>
+</div>
+
+{% endif %}
+
+{% endblock %}

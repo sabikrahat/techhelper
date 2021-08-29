@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+{% extends 'index.html' %}
+{% block title %}Edit Profile - Tech Helper{% endblock %}
+{% block content %}
+{% load static %}
+<h4></h4>
+{% for user in users %}
+<h3>Edit Your Profile</h3>
+<hr>
+<br>
+
+<form action="" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {% if messages %}
+    {% for result in messages %}
+    <div>&ensp;</div>
+    <div class="alert alert-info">
+        {{ result }}
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% if user.image %}
+    <img src="{{user.image.url}}" alt="{{user.email}}" height="140"
+        style="border: 5px solid lightblue; padding: 0.3em; margin-bottom: 1.5em; border-radius: 50%;">
+    {% endif %}
+    <div class="form-group row">
+        <label for="editPhoto" class="col-sm-2 col-form-label"><b>Display Photo</b></label>
+        <div class="col-sm-10">
+            <input type="file" class="form-control" id="editPhoto" placeholder="Choose a file" name="editPhoto">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="inputFirstName" class="col-sm-2 col-form-label"><b>First Name</b></label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="inputFirstName" placeholder="e.g: Alice Doe"
+                name="editFirstName" required value="{{user.firstName}}">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="inputLastName" class="col-sm-2 col-form-label"><b>Last Name</b></label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="inputLastName" placeholder="e.g: Alice Doe" name="editLastName"
+                required value="{{user.lastName}}">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="inputPhoneNumber" class="col-sm-2 col-form-label"><b>Phone Number</b></label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="inputPhoneNumber" placeholder="e.g: Alice Doe"
+                name="editPhoneNumber" required value="{{user.phoneNumber}}">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="inputEmail" class="col-sm-2 col-form-label"><b>Email Address</b></label>
+        <div class="col-sm-10">
+            <input type="email" class="form-control" id="inputEmail" placeholder="email@example.com" name="editEmail"
+                required value="{{user.email}}">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="inputUsername" class="col-sm-2 col-form-label"><b>Username</b></label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="inputUsername" placeholder="Alice [No space]"
+                name="editUsername" required value="{{user.username}}">
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="expertSection" class="col-sm-2 col-form-label"><b>Expertism</b></label>
+        <div class="col-sm-10">
+            <select name="editExpert" selected="{{user.expert}}" id="expert-in" required>
+                <option disabled="true">--- Select your expertism ---</option>
+                <option value="C Programming">C Programming</option>
+                <option value="C++">C++</option>
+                <option value="Java">Java</option>
+                <option value="Python">Python</option>
+                <option value="Django">Django</option>
+                <option value="HTML">HTML</option>
+                <option value="CSS">CSS</option>
+                <option value="PHP">PHP</option>
+                <option value="Flutter">Flutter</option>
+            </select>
+        </div>
+
+    </div>
+
+    <div>&ensp;</div>
+
+    <button type="submit" class="btn btn-outline-primary" name="edit-profile">Update Profile</button>
+
+</form>
+{% endfor %}
+
+{% endblock %}

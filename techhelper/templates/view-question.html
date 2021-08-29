@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+{% extends 'index.html' %}
+{% block title %}View Question{% endblock %}
+{% block content %}
+{% load static %}
+
+<h3>View Post</h3>
+<hr>
+<br>
+
+{% for qstn in questions %}
+<div class="row">
+    <div class="col-9">
+        <h2>{{qstn.14}}</h2>
+    </div>
+    <div class="col-2">
+        <div class="col-2"><button type="button" class="btn btn-light disabled"
+                style="margin-bottom: 0.3em;">&ensp;{{qstn.16}}&ensp;</button></div>
+        <div class="col-1"></div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-9">
+        {% if qstn.9 %}
+        <img src="../../{{qstn.9}}" height="40px"
+            style="border: 3px solid lightblue; padding: 0.1em; border-radius: 50%;"
+            alt="user image" />&ensp;{{qstn.13}}
+        {% else %}
+        <img src="{% static 'others/person.svg' %}" height="40px" style="border-radius: 50%;"
+            alt="user image" />&ensp;{{qstn.13}}
+        {% endif %}
+    </div>
+    <div class="col-3">
+        {{qstn.18}}
+    </div>
+</div>
+<hr>
+<p style="white-space: pre-wrap;">{{qstn.15}}</p>
+<div class="container" style="background-color: #eee; padding: 1em;">
+    <code style="white-space: pre-wrap;">{{qstn.17}}</code>
+</div>
+<h3></h3>
+<h3></h3>
+<hr>
+<h5>Comments</h5>
+<hr>
+
+{% endfor %}
+
+{% endblock %}
