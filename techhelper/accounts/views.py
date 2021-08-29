@@ -76,9 +76,8 @@ def logout(request):
 
 def profile(request):
     try:
-        users = UserRegister.objects.raw(
-            'SELECT * FROM app_users WHERE EMAIL = %s', [request.session['email']])
-        return render(request, 'account/profile.html', {'users': users})
+        user = UserRegister.objects.get(email=request.session['email'])
+        return render(request, 'account/profile.html', {'user': user})
     except:
         messages.success(request, 'You need to login first')
         return redirect(login)
@@ -101,21 +100,20 @@ def myposts(request):
 
 def edit_profile(request):
     if request.method == 'POST':
-        users = UserRegister.objects.raw(
-            'SELECT * FROM app_users WHERE EMAIL = %s', [request.session['email']])
+        user = UserRegister.objects.get(email=request.session['email'])
         if request.POST.get('editFirstName') and request.POST.get('editLastName') and request.POST.get('editPhoneNumber') and request.POST.get('editEmail') and request.POST.get('editUsername') and request.POST.get('editExpert'):
 
             updateRecord = UserRegister()
 
-            updateRecord.id = users[0].id
+            updateRecord.id = user.id
             updateRecord.firstName = request.POST.get('editFirstName')
             updateRecord.lastName = request.POST.get('editLastName')
             updateRecord.phoneNumber = request.POST.get('editPhoneNumber')
             updateRecord.email = request.POST.get('editEmail')
             updateRecord.username = request.POST.get('editUsername')
             updateRecord.expert = request.POST.get('editExpert')
-            updateRecord.password = users[0].password
-            updateRecord.point = users[0].point
+            updateRecord.password = user.password
+            updateRecord.point = user.point
 
             if len(request.FILES) != 0:
                 updateRecord.image = request.FILES['editPhoto']
@@ -128,9 +126,8 @@ def edit_profile(request):
 
     else:
         try:
-            users = UserRegister.objects.raw(
-                'SELECT * FROM app_users WHERE EMAIL = %s', [request.session['email']])
-            return render(request, 'account/edit-profile.html', {'users': users})
+            user = UserRegister.objects.get(email=request.session['email'])
+            return render(request, 'account/edit-profile.html', {'user': user})
         except:
             messages.success(request, 'You need to login first')
             return redirect('login')

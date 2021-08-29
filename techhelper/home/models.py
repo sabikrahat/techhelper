@@ -14,6 +14,7 @@ class UserQuestion(models.Model):
 
     class Meta:
         db_table = 'users_questions'
+
 class UserContact(models.Model):
     messengerId = models.CharField(max_length=10)
     messengerUsername = models.CharField(max_length=30)
@@ -57,3 +58,13 @@ class UserInternships(models.Model):
 
     class Meta:
         db_table = 'users_internships'
+
+class QstnCmnt(models.Model):
+    publisherId = models.CharField(max_length=20)
+    publisherName = models.CharField(max_length=50)
+    qstnId = models.CharField(max_length=20)
+    cmnt = models.CharField(max_length=3072)
+    created_at = models.DateTimeField(default=datetime.now)
+
+    class Meta:
+        db_table = 'questions_comments'

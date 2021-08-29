@@ -104,7 +104,8 @@
                         </li>
                         {% else %}
                         <li><a class="dropdown-item" href="{% url 'profile' %}">
-                                <img src="{% static 'others/person.svg' %}" height="35px" style="border-radius: 50%;"
+                                <img src="{% static 'others/person.svg' %}" height="35px"
+                                    style="border: 3px solid lightblue; padding: 0.1em; border-radius: 50%;"
                                     alt="techhelper image" />&ensp;{{request.session.email}}</a>
                         </li>
                         {% endif %}

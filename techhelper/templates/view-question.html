@@ -6,17 +6,23 @@
 
 <h3>View Post</h3>
 <hr>
-<br>
+{% if messages %}
+{% for result in messages %}
+<div class="alert alert-info">
+    {{ result }}
+</div>
+{% endfor %}
+{% endif %}
 
 {% for qstn in questions %}
 <div class="row">
-    <div class="col-9">
+    <div class="col-10">
         <h2>{{qstn.14}}</h2>
     </div>
-    <div class="col-2">
-        <div class="col-2"><button type="button" class="btn btn-light disabled"
-                style="margin-bottom: 0.3em;">&ensp;{{qstn.16}}&ensp;</button></div>
-        <div class="col-1"></div>
+    <div class="col-1"><button type="button" class="btn btn-light disabled"
+            style="margin-bottom: 0.3em;">&ensp;{{qstn.16}}&ensp;</button>
+    </div>
+    <div class="col-1"><button type="button" class="btn btn-outline-primary">&ensp;Edit&ensp;</button>
     </div>
 </div>
 
@@ -25,13 +31,13 @@
         {% if qstn.9 %}
         <img src="../../{{qstn.9}}" height="40px"
             style="border: 3px solid lightblue; padding: 0.1em; border-radius: 50%;"
-            alt="user image" />&ensp;{{qstn.13}}
+            alt="user image" />&ensp;<b>{{qstn.13}}</b>
         {% else %}
         <img src="{% static 'others/person.svg' %}" height="40px" style="border-radius: 50%;"
-            alt="user image" />&ensp;{{qstn.13}}
+            alt="user image" />&ensp;<b>{{qstn.13}}</b>
         {% endif %}
     </div>
-    <div class="col-3">
+    <div class="col-3" style="text-align: end;">
         {{qstn.18}}
     </div>
 </div>
@@ -43,8 +49,63 @@
 <h3></h3>
 <h3></h3>
 <hr>
-<h5>Comments</h5>
+<form method="POST">
+    {% csrf_token %}
+    <div class="row">
+        <div class="col-1">
+            <h5 style="padding-top: 0.3em;">Discussion&nbsp;</h5>
+        </div>
+        <div class="col-10">
+            <input type="text" class="form-control" id="inputCmnt" placeholder="Write your comment here..."
+                name="inputCmnt" required>
+        </div>
+        <div class="col-1">
+            <button type="submit" class="btn btn-outline-primary">POST</button>
+        </div>
+    </div>
+</form>
 <hr>
+{% if request.session.email %}
+
+{% if cmnts|length %}
+{% for cmnt in cmnts %}
+<div class="card" style="margin-bottom: 0.7em; padding: 0.4em;">
+    <div class="row" style="align-items: center; margin-left: 1em; margin-right: 1.3em;">
+        <div class="col-1">
+            {% if cmnt.9 %}
+            <img src="../../{{cmnt.9}}" height="43px"
+                style="border: 3px solid lightblue; padding: 0.1em; border-radius: 50%; margin-left: 1.6em;"
+                alt="user image" />
+            {% else %}
+            <img src="{% static 'others/person.svg' %}" height="43px"
+                style="border: 3px solid lightblue; padding: 0.1em; border-radius: 50%; margin-left: 1.6em;"
+                alt="user image" />
+            {% endif %}
+        </div>
+        <div class="col-7" style="text-align: start;">
+            <div><b>{{cmnt.13}}</b></div>
+            <div>{{cmnt.15}}</div>
+        </div>
+        <div class="col-4" style="text-align: end;">
+            {{cmnt.16}}
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+{% else %}
+<div class="custom-center">
+    <br>
+    <h5> Sorry! No comments found of this post.</h5>
+</div>
+{% endif %}
+
+{% else %}
+<div class="custom-center">
+    <br>
+    <h5> Sorry! You need to log in first to view comments. <a href="{% url 'login' %}">log in now</a></h5>
+</div>
+{% endif %}
 
 {% endfor %}
 
