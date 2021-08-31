@@ -57,10 +57,10 @@ def login(request):
                 request.session['email'] = userDetail.email
                 return redirect('/')
             else:
-                messages.success(
+                messages.error(
                     request, 'Password incorrect...!')
         except UserRegister.DoesNotExist as e:
-            messages.success(
+            messages.error(
                 request, 'No user found of this email....!')
 
     return render(request, 'account/login.html', context)
@@ -79,7 +79,7 @@ def profile(request):
         user = UserRegister.objects.get(email=request.session['email'])
         return render(request, 'account/profile.html', {'user': user})
     except:
-        messages.success(request, 'You need to login first')
+        messages.error(request, 'You need to login first')
         return redirect(login)
 
 
@@ -94,7 +94,7 @@ def myposts(request):
         return render(request, 'account/my-post.html', {'questions': questions, 'user': user})
 
     except:
-        messages.success(request, 'You need to login first')
+        messages.error(request, 'You need to login first')
         return redirect(login)
 
 
@@ -129,7 +129,7 @@ def edit_profile(request):
             user = UserRegister.objects.get(email=request.session['email'])
             return render(request, 'account/edit-profile.html', {'user': user})
         except:
-            messages.success(request, 'You need to login first')
+            messages.error(request, 'You need to login first')
             return redirect('login')
 
 
@@ -139,7 +139,7 @@ def reset_password(request):
             email = request.POST.get('resetEmail')
 
         if not UserRegister.objects.filter(email=email).first():
-            messages.success(request, 'No user found with this email.')
+            messages.error(request, 'No user found with this email.')
             return render(request, 'reset_password/forget-password.html')
 
         user_obj = UserRegister.objects.get(email=email)
@@ -170,11 +170,11 @@ def change_password(request, token):
             user_id = request.POST.get('user_id')
 
             if user_id is None:
-                messages.success(request, 'No user id found.')
+                messages.error(request, 'No user id found.')
                 return render(request, f'reset_password/change-password/{token}/.html', context)
 
             if new_password != confirm_password:
-                messages.success(request, 'both should  be equal.')
+                messages.error(request, 'both should  be equal.')
                 return render(request, f'reset_password/change-password/{token}/.html', context)
 
             user_obj = UserRegister.objects.filter(id=user_id).first()
@@ -187,5 +187,5 @@ def change_password(request, token):
 
     except Exception as e:
         print(e)
-        messages.success(request, 'url has already been used.')
+        messages.error(request, 'url has already been used.')
         return render(request, 'reset_password/change-password.html', context)

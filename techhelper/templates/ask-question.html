@@ -118,9 +118,15 @@
             </div>
             {% if messages %}
             {% for result in messages %}
-            <div class="alert alert-info">
+            {% if result.tags == "error" %}
+            <div class="alert alert-danger">
                 {{ result }}
             </div>
+            {% else %}
+            <div class="alert alert-success">
+                {{ result }}
+            </div>
+            {% endif %}
             {% endfor %}
             {% endif %}
             <button type="submit" class="btn btn-outline-primary">Post your Question</button>

@@ -13,9 +13,15 @@
     {% if messages %}
     {% for result in messages %}
     <div>&ensp;</div>
-    <div class="alert alert-info">
+    {% if result.tags == "error" %}
+    <div class="alert alert-danger">
         {{ result }}
     </div>
+    {% else %}
+    <div class="alert alert-success">
+        {{ result }}
+    </div>
+    {% endif %}
     {% endfor %}
     {% endif %}
     {% if user.image %}

@@ -70,69 +70,54 @@
 </style>
 
 {% extends 'index.html' %}
-{% block title %}Post Job{% endblock %}
+{% block title %}Edit Question{% endblock %}
 {% block content %}
 {% load static %}
 
+{% for qstn in questions%}
 <div class="container contact-form">
     <div class="contact-image">
         <img src="{% static 'images/techhelper.png' %}" alt="techhelper_logo" />
     </div>
     <form method="post">
         {% csrf_token %}
-
-        <h3>Post your Job Vacancy to get Best Employee<br><br>20 points will reduce from your account for each
-            post.
+        <h3>Edit your problem carefully.<br>
         </h3>
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
-                    <input type="text" name="jobTitle" class="form-control" placeholder="Job Title *" required />
+                    <input type="text" name="editQuestionTitle" class="form-control" placeholder="Title *"
+                        value="{{qstn.14}}" required />
                 </div>
                 <div class="form-group">
-                    <input type="text" name="companyName" class="form-control" placeholder="Company Name *" required />
-                </div>
-                <div class="form-group">
-                    <textarea name="jobDescription" class="form-control" placeholder="Please give a description.... *"
-                        style="width: 100%; height: 150px;" required></textarea>
+                    <textarea name="editQustionDescription" class="form-control"
+                        placeholder="Please give a description here.... *"
+                        style="width: 100%; height: 180px;">{{qstn.15}}</textarea>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <select class="form-control" name="jobType" id="time" required>
-                        <option class="hidden" selected disable value="Full Time">--- Select Job Type * ---
+                    <select class="form-control" name="editQuestionType" id="inputExpert" required>
+                        <option class="hidden" selected disable value="{{qstn.16}}">--- Select your
+                            Question Type * ---
                         </option>
-                        <option value="Full Time">Full Time</option>
-                        <option value="Part Time">Part Time</option>
-                        <option value="Project Based">Project Based</option>
+                        <option value="C Programming">C Programming</option>
+                        <option value="C++">C++</option>
+                        <option value="Java">Java</option>
+                        <option value="Python">Python</option>
+                        <option value="Django">Django</option>
+                        <option value="HTML">HTML</option>
+                        <option value="CSS">CSS</option>
+                        <option value="PHP">PHP</option>
+                        <option value="Flutter">Flutter</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <select class="form-control" name="paymentStatus" id="paid" required>
-                        <option class="hidden" selected disable value="Paid">--- Select Payment Status* ---
-                        </option>
-                        <option value="Paid">Paid</option>
-                        <option value="Unpaid">UnPaid</option>
-                        <option value="Negotiable">Negotiable</option>
-                    </select>
+                    <textarea name="editQuestionCode" class="form-control"
+                        placeholder="Please give your code here.... *"
+                        style="width: 100%; height: 180px;">{{qstn.17}}</textarea>
                 </div>
-                <div class="form-group">
-                    <select class="form-control" name="workPlace" id="place" required>
-                        <option class="hidden" selected disable value="At Office">--- Select Work Place * ---
-                        </option>
-                        <option value="At Office">At Office</option>
-                        <option value="Work from Home">Work from Home</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <input type="text" name="minSalary" class="form-control" placeholder="Minimum Salary" required />
-                </div>
-                <div class="form-group">
-                    <input type="text" name="maxSalary" class="form-control" placeholder="Maximum Salary" required />
-                </div>
-
             </div>
-            <h5></h5>
             {% if messages %}
             {% for result in messages %}
             {% if result.tags == "error" %}
@@ -146,9 +131,10 @@
             {% endif %}
             {% endfor %}
             {% endif %}
-            <button type="submit" class="btn btn-outline-primary">Post your Job</button>
+            <button type="submit" class="btn btn-outline-primary">Update Question</button>
         </div>
     </form>
 </div>
+{% endfor %}
 
 {% endblock %}

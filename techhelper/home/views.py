@@ -108,7 +108,7 @@ def feedback(request):
         else:
             return render(request, 'feedback.html', {'user': user})
     except:
-        messages.success(request, 'You need to login first')
+        messages.error(request, 'You need to login first')
         return redirect('login')
 
 
@@ -173,7 +173,7 @@ def askquestion(request):
                     request, "Your question has been submitted!")
                 return render(request, 'ask-question.html', {'user': user})
             else:
-                messages.success(
+                messages.error(
                     request, "You don't have enough point! Please buy points.")
                 return render(request, 'ask-question.html', {'user': user})
     else:
@@ -181,7 +181,7 @@ def askquestion(request):
             user = UserRegister.objects.get(email=request.session['email'])
             return render(request, 'ask-question.html', {'user': user})
         except:
-            messages.success(request, 'You need to login first')
+            messages.error(request, 'You need to login first')
             return redirect('login')
 
 
@@ -212,13 +212,13 @@ def postjob(request):
                     messages.success(
                         request, "Your job post has been submitted!")
                 else:
-                    messages.success(
+                    messages.error(
                         request, "You don't have enough point! Please buy points.")
                 return render(request, 'post-job.html', {'user': user})
         else:
             return render(request, 'post-job.html', {'user': user})
     except:
-        messages.success(request, 'You need to login first')
+        messages.error(request, 'You need to login first')
         return redirect('login')
 
 
@@ -254,13 +254,13 @@ def postinternship(request):
                     messages.success(
                         request, "Your internship post has been submitted!")
                 else:
-                    messages.success(
+                    messages.error(
                         request, "You don't have enough point! Please buy points.")
                 return render(request, 'post-internship.html', {'user': user})
         else:
             return render(request, 'post-internship.html', {'user': user})
     except:
-        messages.success(request, 'You need to login first')
+        messages.error(request, 'You need to login first')
         return redirect('login')
 
 
@@ -283,7 +283,7 @@ def viewquestion(request, token):
                         'SELECT * FROM app_users au, questions_comments qc WHERE au.id = qc.publisherId and QSTNID = %s ORDER BY qc.id DESC', [token])
                     cmnts = cursor.fetchall()
                     cursor.close()
-                    messages.success(
+                    messages.error(
                         request, "You can't post an empty discussion")
                     return render(request, 'view-question.html', {'questions': questions, 'cmnts': cmnts, 'user': user})
                 else:
@@ -325,6 +325,39 @@ def viewquestion(request, token):
 
     except:
         if request.method == 'POST':
-            messages.success(
+            messages.error(
                 request, "You need to login first.")
         return render(request, 'view-question.html', {'questions': questions})
+
+
+def editquestion(request, token):
+    cursor = connection.cursor()
+    cursor.execute(
+        'SELECT * FROM app_users au, users_questions uq WHERE au.id = uq.publisherId and uq.id = %s ORDER BY uq.id DESC', [token])
+
+    questions = cursor.fetchall()
+    cursor.close()
+
+    if request.method == 'POST':
+        if request.POST.get('editQuestionTitle') and request.POST.get('editQustionDescription') and request.POST.get('editQuestionType') and request.POST.get('editQuestionCode'):
+            
+            qstn = UserQuestion.objects.get(id=token)
+
+            user = UserRegister.objects.get(email=request.session['email'])
+
+            qstn.title = request.POST.get('editQuestionTitle')
+            qstn.description = request.POST.get('editQustionDescription')
+            qstn.type = request.POST.get('editQuestionType')
+            qstn.code = request.POST.get('editQuestionCode')
+
+            qstn.save()
+            messages.success(
+                request, "Your question has been updated!")
+            return render(request, 'ask-question.html', {'questions': questions, 'user': user})
+    else:
+        try:
+            user = UserRegister.objects.get(email=request.session['email'])
+            return render(request, 'edit-question.html', {'questions': questions,'user': user})
+        except:
+            messages.error(request, 'You need to login first')
+            return redirect('login')

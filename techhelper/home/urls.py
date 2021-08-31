@@ -12,4 +12,5 @@ urlpatterns = [
     path('post-a-job', views.postjob, name='post-a-job'),
     path('post-an-internship', views.postinternship, name='post-an-internship'),
     path('view-question/<token>/', views.viewquestion, name='view-question'),
+    path('edit-question/<token>/', views.editquestion, name='edit-question'),
 ]

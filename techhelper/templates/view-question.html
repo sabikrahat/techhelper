@@ -8,9 +8,15 @@
 <hr>
 {% if messages %}
 {% for result in messages %}
-<div class="alert alert-info">
+{% if result.tags == "error" %}
+<div class="alert alert-danger">
     {{ result }}
 </div>
+{% else %}
+<div class="alert alert-success">
+    {{ result }}
+</div>
+{% endif %}
 {% endfor %}
 {% endif %}
 
@@ -19,11 +25,17 @@
     <div class="col-10">
         <h2>{{qstn.14}}</h2>
     </div>
+    {% if qstn.6 == request.session.email %}
     <div class="col-1"><button type="button" class="btn btn-light disabled"
             style="margin-bottom: 0.3em;">&ensp;{{qstn.16}}&ensp;</button>
     </div>
-    <div class="col-1"><button type="button" class="btn btn-outline-primary">&ensp;Edit&ensp;</button>
+    <div class="col-1"><button type="button" class="btn btn-outline-primary" onclick="location.href='/edit-question/{{qstn.11}}/'">&ensp;Edit&ensp;</button>
     </div>
+    {% else %}
+    <div class="col-2"><button type="button" class="btn btn-light disabled"
+            style="margin-bottom: 0.3em;">&ensp;&nbsp;{{qstn.16}}&ensp;&nbsp;</button>
+    </div>
+    {% endif %}
 </div>
 
 <div class="row">
