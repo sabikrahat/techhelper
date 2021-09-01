@@ -198,7 +198,7 @@ def postjob(request):
     try:
         user = UserRegister.objects.get(email=request.session['email'])
         if request.method == 'POST':
-            if request.POST.get('jobTitle') and request.POST.get('companyName') and request.POST.get('jobDescription') and request.POST.get('jobType') and request.POST.get('paymentStatus') and request.POST.get('workPlace') and request.POST.get('minSalary') and request.POST.get('maxSalary'):
+            if request.POST.get('jobTitle') and request.POST.get('companyName') and request.POST.get('jobDescription') and request.POST.get('jobType') and request.POST.get('paymentStatus') and request.POST.get('workPlace') and request.POST.get('minSalary') and request.POST.get('maxSalary') and request.POST.get('applyLink'):
                 saveJob = UserJobs()
 
                 saveJob.publisherId = user.id
@@ -211,6 +211,7 @@ def postjob(request):
                 saveJob.workPlace = request.POST.get('workPlace')
                 saveJob.minSalary = request.POST.get('minSalary')
                 saveJob.maxSalary = request.POST.get('maxSalary')
+                saveJob.applyLink = request.POST.get('applyLink')
 
                 if int(user.point) >= 20:
                     user.point = str(int(user.point) - 20)
@@ -235,7 +236,7 @@ def postinternship(request):
     try:
         user = UserRegister.objects.get(email=request.session['email'])
         if request.method == 'POST':
-            if request.POST.get('internshipTitle') and request.POST.get('companyName') and request.POST.get('internshipDescription') and request.POST.get('internshipType') and request.POST.get('paymentStatus') and request.POST.get('workPlace') and request.POST.get('minSalary') and request.POST.get('maxSalary'):
+            if request.POST.get('internshipTitle') and request.POST.get('companyName') and request.POST.get('internshipDescription') and request.POST.get('internshipType') and request.POST.get('paymentStatus') and request.POST.get('workPlace') and request.POST.get('minSalary') and request.POST.get('maxSalary') and request.POST.get('applyLink'):
                 saveInternship = UserInternships()
 
                 saveInternship.publisherId = user.id
@@ -253,6 +254,7 @@ def postinternship(request):
                 saveInternship.workPlace = request.POST.get('workPlace')
                 saveInternship.minSalary = request.POST.get('minSalary')
                 saveInternship.maxSalary = request.POST.get('maxSalary')
+                saveInternship.applyLink = request.POST.get('applyLink')
 
                 if int(user.point) >= 20:
                     user.point = str(int(user.point) - 20)
@@ -395,7 +397,7 @@ def editjob(request, token):
     cursor.close()
 
     if request.method == 'POST':
-        if request.POST.get('editJobTitle') and request.POST.get('editCompanyName') and request.POST.get('editJobDescription') and request.POST.get('editJobType') and request.POST.get('editPaymentStatus') and request.POST.get('editWorkPlace') and request.POST.get('editMinSalary') and request.POST.get('editMaxSalary'):
+        if request.POST.get('editJobTitle') and request.POST.get('editCompanyName') and request.POST.get('editJobDescription') and request.POST.get('editJobType') and request.POST.get('editPaymentStatus') and request.POST.get('editWorkPlace') and request.POST.get('editMinSalary') and request.POST.get('editMaxSalary') and request.POST.get('editApplyLink'):
 
             job = UserJobs.objects.get(id=token)
 
@@ -409,6 +411,7 @@ def editjob(request, token):
             job.workPlace = request.POST.get('editWorkPlace')
             job.minSalary = request.POST.get('editMinSalary')
             job.maxSalary = request.POST.get('editMaxSalary')
+            job.applyLink = request.POST.get('editApplyLink')
 
             job.save()
             messages.success(
@@ -420,7 +423,6 @@ def editjob(request, token):
             return render(request, 'edit-job.html', {'jobs': jobs, 'user': user})
         except:
             messages.error(request, 'You need to login first')
-            return redirect('login')
             return redirect('login')
 
 
@@ -447,7 +449,7 @@ def editinternship(request, token):
     cursor.close()
 
     if request.method == 'POST':
-        if request.POST.get('editInternshipTitle') and request.POST.get('editCompanyName') and request.POST.get('editInternshipDescription') and request.POST.get('editInternshipType') and request.POST.get('editPaymentStatus') and request.POST.get('editWorkPlace') and request.POST.get('editMinSalary') and request.POST.get('editMaxSalary'):
+        if request.POST.get('editInternshipTitle') and request.POST.get('editCompanyName') and request.POST.get('editInternshipDescription') and request.POST.get('editInternshipType') and request.POST.get('editPaymentStatus') and request.POST.get('editWorkPlace') and request.POST.get('editMinSalary') and request.POST.get('editMaxSalary') and request.POST.get('editApplyLink'):
 
             intern = UserInternships.objects.get(id=token)
 
@@ -461,6 +463,7 @@ def editinternship(request, token):
             intern.workPlace = request.POST.get('editWorkPlace')
             intern.minSalary = request.POST.get('editMinSalary')
             intern.maxSalary = request.POST.get('editMaxSalary')
+            intern.applyLink = request.POST.get('editApplyLink')
 
             intern.save()
             messages.success(

@@ -37,6 +37,7 @@ class UserJobs(models.Model):
     workPlace = models.CharField(max_length=15)
     minSalary = models.CharField(max_length=15)
     maxSalary = models.CharField(max_length=15)
+    applyLink = models.CharField(max_length=100)
     created_at = models.DateTimeField(default=datetime.now)
 
     class Meta:
@@ -54,6 +55,7 @@ class UserInternships(models.Model):
     workPlace = models.CharField(max_length=15)
     minSalary = models.CharField(max_length=15)
     maxSalary = models.CharField(max_length=15)
+    applyLink = models.CharField(max_length=100)
     created_at = models.DateTimeField(default=datetime.now)
 
     class Meta:
