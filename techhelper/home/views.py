@@ -1,3 +1,4 @@
+from django.http import request
 from home.models import QstnCmnt
 from home.models import UserInternships
 from home.models import UserJobs
@@ -129,8 +130,12 @@ def terms(request):
 
 
 def job(request):
-    jobs = UserQuestion.objects.raw(
+    cursor = connection.cursor()
+    cursor.execute(
         'SELECT * FROM app_users au, users_jobs uj WHERE au.id = uj.publisherId ORDER BY uj.id DESC')
+
+    jobs = cursor.fetchall()
+    cursor.close()
     try:
         user = UserRegister.objects.get(email=request.session['email'])
         return render(request, 'job.html', {'jobs': jobs, 'user': user})
@@ -139,8 +144,12 @@ def job(request):
 
 
 def internship(request):
-    internships = UserQuestion.objects.raw(
+    cursor = connection.cursor()
+    cursor.execute(
         'SELECT * FROM app_users au, users_internships ui WHERE au.id = ui.publisherId ORDER BY ui.id DESC')
+
+    internships = cursor.fetchall()
+    cursor.close()
     try:
         user = UserRegister.objects.get(email=request.session['email'])
         return render(request, 'internship.html', {'internships': internships, 'user': user})
@@ -340,7 +349,7 @@ def editquestion(request, token):
 
     if request.method == 'POST':
         if request.POST.get('editQuestionTitle') and request.POST.get('editQustionDescription') and request.POST.get('editQuestionType') and request.POST.get('editQuestionCode'):
-            
+
             qstn = UserQuestion.objects.get(id=token)
 
             user = UserRegister.objects.get(email=request.session['email'])
@@ -357,7 +366,110 @@ def editquestion(request, token):
     else:
         try:
             user = UserRegister.objects.get(email=request.session['email'])
-            return render(request, 'edit-question.html', {'questions': questions,'user': user})
+            return render(request, 'edit-question.html', {'questions': questions, 'user': user})
+        except:
+            messages.error(request, 'You need to login first')
+            return redirect('login')
+
+
+def viewjob(request, token):
+    cursor = connection.cursor()
+    cursor.execute(
+        'SELECT * FROM app_users au, users_jobs uj WHERE au.id = uj.publisherId and uj.id = %s ORDER BY uj.id DESC', [token])
+
+    jobs = cursor.fetchall()
+    cursor.close()
+    try:
+        user = UserRegister.objects.get(email=request.session['email'])
+        return render(request, 'view-job.html', {'jobs': jobs, 'user': user})
+    except:
+        return render(request, 'view-job.html', {'jobs': jobs})
+
+
+def editjob(request, token):
+    cursor = connection.cursor()
+    cursor.execute(
+        'SELECT * FROM app_users au, users_jobs uj WHERE au.id = uj.publisherId and uj.id = %s ORDER BY uj.id DESC', [token])
+
+    jobs = cursor.fetchall()
+    cursor.close()
+
+    if request.method == 'POST':
+        if request.POST.get('editJobTitle') and request.POST.get('editCompanyName') and request.POST.get('editJobDescription') and request.POST.get('editJobType') and request.POST.get('editPaymentStatus') and request.POST.get('editWorkPlace') and request.POST.get('editMinSalary') and request.POST.get('editMaxSalary'):
+
+            job = UserJobs.objects.get(id=token)
+
+            user = UserRegister.objects.get(email=request.session['email'])
+
+            job.jobTitle = request.POST.get('editJobTitle')
+            job.companyName = request.POST.get('editCompanyName')
+            job.description = request.POST.get('editJobDescription')
+            job.jobType = request.POST.get('editJobType')
+            job.paymentStatus = request.POST.get('editPaymentStatus')
+            job.workPlace = request.POST.get('editWorkPlace')
+            job.minSalary = request.POST.get('editMinSalary')
+            job.maxSalary = request.POST.get('editMaxSalary')
+
+            job.save()
+            messages.success(
+                request, "Your job post has been updated!")
+            return render(request, 'edit-job.html', {'jobs': jobs, 'user': user})
+    else:
+        try:
+            user = UserRegister.objects.get(email=request.session['email'])
+            return render(request, 'edit-job.html', {'jobs': jobs, 'user': user})
+        except:
+            messages.error(request, 'You need to login first')
+            return redirect('login')
+            return redirect('login')
+
+
+def viewinternship(request, token):
+    cursor = connection.cursor()
+    cursor.execute(
+        'SELECT * FROM app_users au, users_internships ui WHERE au.id = ui.publisherId and ui.id = %s ORDER BY ui.id DESC', [token])
+
+    internships = cursor.fetchall()
+    cursor.close()
+    try:
+        user = UserRegister.objects.get(email=request.session['email'])
+        return render(request, 'view-internship.html', {'internships': internships, 'user': user})
+    except:
+        return render(request, 'view-internship.html', {'internships': internships})
+
+
+def editinternship(request, token):
+    cursor = connection.cursor()
+    cursor.execute(
+        'SELECT * FROM app_users au, users_internships ui WHERE au.id = ui.publisherId and ui.id = %s ORDER BY ui.id DESC', [token])
+
+    internships = cursor.fetchall()
+    cursor.close()
+
+    if request.method == 'POST':
+        if request.POST.get('editInternshipTitle') and request.POST.get('editCompanyName') and request.POST.get('editInternshipDescription') and request.POST.get('editInternshipType') and request.POST.get('editPaymentStatus') and request.POST.get('editWorkPlace') and request.POST.get('editMinSalary') and request.POST.get('editMaxSalary'):
+
+            intern = UserInternships.objects.get(id=token)
+
+            user = UserRegister.objects.get(email=request.session['email'])
+
+            intern.jobTitle = request.POST.get('editInternshipTitle')
+            intern.companyName = request.POST.get('editCompanyName')
+            intern.description = request.POST.get('editInternshipDescription')
+            intern.jobType = request.POST.get('editInternshipType')
+            intern.paymentStatus = request.POST.get('editPaymentStatus')
+            intern.workPlace = request.POST.get('editWorkPlace')
+            intern.minSalary = request.POST.get('editMinSalary')
+            intern.maxSalary = request.POST.get('editMaxSalary')
+
+            intern.save()
+            messages.success(
+                request, "Your internship post has been updated!")
+            return render(request, 'edit-internship.html', {'internships': internships, 'user': user})
+    else:
+        try:
+            user = UserRegister.objects.get(email=request.session['email'])
+            return render(request, 'edit-internship.html', {'internships': internships, 'user': user})
         except:
             messages.error(request, 'You need to login first')
             return redirect('login')

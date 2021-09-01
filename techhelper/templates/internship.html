@@ -27,18 +27,24 @@
 <div class="row">
     <div class="col-1"></div>
     <div class="col-8">
-        <img src="{% static 'others/person.svg' %}" height="26px" width="26px"
-            alt="techhelper image" />&ensp;{{intern.publisherName}}
+        {% if intern.9 %}
+        <img src="../../{{intern.9}}" height="40px"
+            style="border: 3px solid lightblue; padding: 0.1em; border-radius: 50%;"
+            alt="user image" />&ensp;{{intern.13}}
+        {% else %}
+        <img src="{% static 'others/person.svg' %}" height="32px" style="border-radius: 50%;"
+            alt="user image" />&ensp;{{intern.13}}
+        {% endif %}
     </div>
 </div>
 <p></p>
 <div class="row">
     <div class="col-1"></div>
     <div class="col-8">
-        <h4>{{intern.internshipTitle}}&ensp;[{{intern.companyName}}]</h4>
+        <h4>{{intern.14}}&ensp;[{{intern.15}}]</h4>
     </div>
     <div class="col-2"><button type="button" class="btn btn-light disabled"
-            style="margin-bottom: 0.3em;">&ensp;{{intern.internshipType}}&ensp;</button></div>
+            style="margin-bottom: 0.3em;">&ensp;{{intern.17}}&ensp;</button></div>
     <div class="col-1"></div>
 </div>
 <div class="row">
@@ -46,9 +52,10 @@
     <div class="col-8">
         <p
             style="overflow: hidden; text-overflow: ellipsis;display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">
-            {{intern.description}}</p>
+            {{intern.16}}</p>
     </div>
-    <div class="col-2"><button type="button" class="btn btn-outline-primary">&ensp;&ensp;View&ensp;&ensp;</button>
+    <div class="col-2"><button type="button" class="btn btn-outline-primary"
+            onclick="location.href='/view-internship/{{intern.11}}/'">&ensp;&ensp;View&ensp;&ensp;</button>
     </div>
     <div class="col-1"></div>
 </div>

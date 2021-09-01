@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+{% extends 'index.html' %}
+{% block title %}View Internship{% endblock %}
+{% block content %}
+{% load static %}
+
+{% for internship in internships %}
+
+<h6></h6>
+<div class="row">
+    <div class="col-11">
+        <h3>View Internship</h3>
+    </div>
+    {% if internship.6 == request.session.email %}
+    <div class="col-1">
+        <button type="button" class="btn btn-outline-primary" style="margin-bottom: 0.4em;"
+            onclick="location.href='/edit-internship/{{internship.11}}/'">Edit Post</button>
+    </div>
+    {% else %}
+    <div class="col-1">
+        <button type="button" class="btn btn-outline-primary" style="margin-bottom: 0.4em;">Apply Now</button>
+        <!-- <a href="{% url 'my-posts' %}"><button type="button" class="btn btn-outline-primary"
+                    style="margin-bottom: 0.4em;">Apply Now</button></a> -->
+    </div>
+    {% endif %}
+    <hr>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <h3>{{internship.15}}&nbsp;[{{internship.14}}]&nbsp;</h3>
+    </div>
+</div>
+<br>
+<div class="row" style="align-items: center;">
+    <div class="col-9">
+        {% if internship.9 %}
+        <img src="../../{{internship.9}}" height="40px"
+            style="border: 3px solid lightblue; padding: 0.1em; border-radius: 50%;"
+            alt="user image" />&ensp;<b>{{internship.13}}</b>
+        {% else %}
+        <img src="{% static 'others/person.svg' %}" height="40px" style="border-radius: 50%;"
+            alt="user image" />&ensp;<b>{{internship.13}}</b>
+        {% endif %}
+    </div>
+    <div class="col-3" style="text-align: end;">
+        {{internship.22}}
+    </div>
+</div>
+<hr>
+<div class="row">
+    <div class="col-1">
+        <button type="button" class="btn btn-light disabled"
+            style="margin-right: 1em;">&ensp;{{internship.17}}&ensp;&ensp;&ensp;|&ensp;&ensp;&ensp;{{internship.18}}&ensp;&ensp;&ensp;|&ensp;&ensp;&ensp;<b>Salary:</b>&ensp;{{internship.20}}&nbsp;-&nbsp;{{internship.21}}/=&ensp;&ensp;&ensp;|&ensp;&ensp;&ensp;{{internship.19}}&ensp;</button>
+    </div>
+</div>
+<hr>
+<p style="white-space: pre-wrap;">{{internship.16}}</p>
+
+{% endfor %}
+
+{% endblock %}
