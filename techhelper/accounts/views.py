@@ -69,7 +69,9 @@ def login(request):
 def logout(request):
     try:
         del request.session['email']
+        messages.success(request, "Successfully logged out.")
     except:
+        messages.error(request, "An error occurred. Try again.")
         return redirect('/')
     return redirect('/')
 

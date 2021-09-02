@@ -154,7 +154,15 @@
             {% endif %}
             {% endfor %}
             {% endif %}
-            <button type="submit" class="btn btn-outline-primary">Update Job</button>
+            <div class="row">
+                <div class="col"><button type="button" class="btn btn-danger col-12" style="margin-left: 0.5em;"
+                        onclick="location.href='/delete-job/{{job.11}}/'">Delete Post</button></div>
+                <div class="col"><button type="submit" class="btn btn-outline-primary col-12"
+                        style="margin-left: 1.5em;">Update
+                        Job</button>
+                </div>
+            </div>
+            <br>
         </div>
     </form>
     {% endfor %}

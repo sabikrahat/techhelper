@@ -476,3 +476,39 @@ def editinternship(request, token):
         except:
             messages.error(request, 'You need to login first')
             return redirect('login')
+
+
+def deletequestion(request, token):
+    try:
+        qstn = UserQuestion.objects.get(id=token)
+        qstn.delete()
+        messages.success(
+            request, "Your question has been deleted successfully.")
+    except:
+        messages.error(request, "An error occurred. Try again.")
+        return redirect('/')
+    return redirect('/')
+
+
+def deletejob(request, token):
+    try:
+        job = UserJobs.objects.get(id=token)
+        job.delete()
+        messages.success(
+            request, "Your job post has been deleted successfully.")
+    except:
+        messages.error(request, "An error occurred. Try again.")
+        return redirect('/')
+    return redirect('/')
+
+
+def deleteinternship(request, token):
+    try:
+        internship = UserInternships.objects.get(id=token)
+        internship.delete()
+        messages.success(
+            request, "Your internship post has been deleted successfully.")
+    except:
+        messages.error(request, "An error occurred. Try again.")
+        return redirect('/')
+    return redirect('/')

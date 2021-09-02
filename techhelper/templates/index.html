@@ -159,6 +159,19 @@
                     </div>
                 </div>
                 <hr>
+                {% if messages %}
+                {% for result in messages %}
+                {% if result.tags == "error" %}
+                <div class="alert alert-danger">
+                    {{ result }}
+                </div>
+                {% else %}
+                <div class="alert alert-success">
+                    {{ result }}
+                </div>
+                {% endif %}
+                {% endfor %}
+                {% endif %}
                 <!-- Slider Image -->
                 <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-indicators">
