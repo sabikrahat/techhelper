@@ -26,41 +26,48 @@
     <link rel="icon" href="{% static 'favicon.ico' %}">
 
     <!-- Custom Style CSS-->
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Lato:ital@1&display=swap');
+    <link rel="stylesheet" type="text/css" id="mystylesheet" href="{% static 'css/light.css' %}">
+    <!-- initial task -->
+    <script type="text/javascript">
+        var currTheme = localStorage.getItem('theme')
 
-        * {
-            font-family: 'Lato', sans-serif;
+        if (currTheme == null) {
+            document.getElementById('mystylesheet').href = "{% static 'css/light.css' %}"
+            localStorage.setItem('theme', 'light.css')
+        } else if (currTheme == 'light.css') {
+            document.getElementById('mystylesheet').href = "{% static 'css/light.css' %}"
+        } else if (currTheme == 'dark.css') {
+            document.getElementById('mystylesheet').href = "{% static 'css/dark.css' %}"
         }
-
-        .custom-center {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 600px;
-        }
-
-        select {
-            padding-top: 10px;
-            padding-bottom: 10px;
-            padding-right: 10px;
-            padding-left: 10px;
-        }
-    </style>
+    </script>
 
     <!-- Title -->
     <title>{% block title %}Tech Helper{% endblock %}</title>
 
 </head>
 
+<script type="text/javascript">
+    function swapStyle() {
+        var currTheme = localStorage.getItem('theme')
+
+        if (currTheme == 'light.css') {
+            document.getElementById('mystylesheet').href = "{% static 'css/dark.css' %}"
+            localStorage.setItem('theme', 'dark.css')
+        } else {
+            document.getElementById('mystylesheet').href = "{% static 'css/light.css' %}"
+            localStorage.setItem('theme', 'light.css')
+        }
+    }
+</script>
+
 <body>
     <!-- Navbar Code -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg">
         <div class="container-fluid">
             <a class="navbar-brand" href="{% url 'index' %}">
                 <img src="{% static 'images/techhelper.png' %}" height="30px" width="30px"
                     class="d-inline-block align-top" alt="techhelper image" />
-                Tech Helper
+                <b>Tech Helper</b>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -84,15 +91,15 @@
                 </ul>
                 {% if request.session.email %}
                 {% if user.username %}
-                <p style="color: green; margin-top: 1em;">&ensp;|&nbsp;{{user.username}}&nbsp;|&ensp;</p>
+                <b style="color: green;">&ensp;|&nbsp;{{user.username}}&nbsp;|&ensp;</b>
                 {% else %}
-                <p style="color: green; margin-top: 1em;">&ensp;|&nbsp;{{request.session.email}}&nbsp;|&ensp;</p>
+                <b style="color: green;">&ensp;|&nbsp;{{request.session.email}}&nbsp;|&ensp;</b>
                 {% endif %}
                 {% endif %}
                 <div class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button"
                         data-bs-toggle="dropdown" aria-expanded="false">
-                        Account
+                        <b>Account</b>
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         {% if request.session.email %}
@@ -123,7 +130,10 @@
                 <a href="{% url 'ask-a-question' %}"><button type="button" class="btn btn-primary">Ask a
                         Question</button></a>
                 <h5>&ensp;&ensp;</h5>
-
+                <label class="switch">
+                    <input type="checkbox" onclick="swapStyle()">
+                    <span class="slider round"></span>
+                </label>
             </div>
         </div>
     </nav>
@@ -141,8 +151,8 @@
                         <form method="POST">
                             {% csrf_token %}
                             <form class="d-flex">
-                                <select class="form-control" name="qstnType" onchange="this.form.submit()">
-                                    <option class="hidden" selected disable>Select Type</option>
+                                <select name="qstnType" onchange="this.form.submit()">
+                                    <option disabled="true">Select Type</option>
                                     <option value="All">All Types </option>
                                     <option value="C Programming">C</option>
                                     <option value="C++">C++</option>
@@ -262,7 +272,8 @@
     <br>
 
     <!-- Footer -->
-    <footer class="footer mt-auto py-3 bg-light text-muted text-center text-small bg-light">
+    <hr>
+    <footer class="footer mt-auto py-3 text-muted text-center text-small ">
         <div class="container">
             <p class="mb-1"><img src="{% static 'images/techhelper.png' %}" height="30px"
                     alt="techhelper image" />&ensp;Tech

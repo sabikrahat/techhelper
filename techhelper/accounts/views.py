@@ -103,7 +103,7 @@ def myposts(request):
 def edit_profile(request):
     if request.method == 'POST':
         user = UserRegister.objects.get(email=request.session['email'])
-        if request.POST.get('editFirstName') and request.POST.get('editLastName') and request.POST.get('editPhoneNumber') and request.POST.get('editEmail') and request.POST.get('editUsername') and request.POST.get('editExpert'):
+        if request.POST.get('editFirstName') and request.POST.get('editLastName') and request.POST.get('editPhoneNumber') and request.POST.get('editUsername') and request.POST.get('editExpert'):
 
             updateRecord = UserRegister()
 
