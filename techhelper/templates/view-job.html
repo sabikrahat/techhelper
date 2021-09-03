@@ -17,11 +17,19 @@
             onclick="location.href='/edit-job/{{job.11}}/'">Edit Post</button>
     </div>
     {% else %}
+    {% if request.session.email %}
     <div class="col-1">
         <a href="{{job.22}}" target="_blank"><button type="button" class="btn btn-outline-primary"
                 style="margin-bottom: 0.4em;">Apply
                 Now</button></a>
     </div>
+    {% else %}
+    <div class="col-1">
+        <a href="{% url 'throwtologin' %}"><button type="button" class="btn btn-outline-primary"
+                style="margin-bottom: 0.4em;">Apply
+                Now</button></a>
+    </div>
+    {% endif %}
     {% endif %}
     <hr>
 </div>

@@ -28,12 +28,12 @@
     <div class="col-1"></div>
     <div class="col-8">
         {% if intern.9 %}
-        <img src="../../{{intern.9}}" height="40px"
-            style="border: 3px solid lightblue; padding: 0.1em; border-radius: 50%;"
-            alt="user image" />&ensp;{{intern.13}}
+        <a href="/user-profile/{{intern.0}}/"><img src="{{intern.9}}" height="40px"
+                style="border: 3px solid lightblue; padding: 0.1em; border-radius: 50%;"
+                alt="user image" />&ensp;{{intern.13}}</a>
         {% else %}
-        <img src="{% static 'others/person.svg' %}" height="32px" style="border-radius: 50%;"
-            alt="user image" />&ensp;{{intern.13}}
+        <a href="/user-profile/{{intern.0}}/"><img src="{% static 'others/person.svg' %}" height="32px"
+                style="border-radius: 50%;" alt="user image" />&ensp;{{intern.13}}</a>
         {% endif %}
     </div>
 </div>

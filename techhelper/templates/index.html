@@ -221,12 +221,12 @@
                     <div class="col-1"></div>
                     <div class="col-8">
                         {% if qstn.9 %}
-                        <img src="{{qstn.9}}" height="40px"
-                            style="border: 3px solid lightblue; padding: 0.1em; border-radius: 50%;"
-                            alt="user image" />&ensp;{{qstn.13}}
+                        <a href="/user-profile/{{qstn.0}}/"><img src="{{qstn.9}}" height="40px"
+                                style="border: 3px solid lightblue; padding: 0.1em; border-radius: 50%;"
+                                alt="user image" />&ensp;{{qstn.13}}</a>
                         {% else %}
-                        <img src="{% static 'others/person.svg' %}" height="32px" style="border-radius: 50%;"
-                            alt="user image" />&ensp;{{qstn.13}}
+                        <a href="/user-profile/{{qstn.0}}/"><img src="{% static 'others/person.svg' %}"
+                                height="32px" style="border-radius: 50%;" alt="user image" />&ensp;{{qstn.13}}</a>
                         {% endif %}
                     </div>
                 </div>

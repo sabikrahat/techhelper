@@ -25,11 +25,12 @@
     <div class="col-1"></div>
     <div class="col-8">
         {% if job.9 %}
-        <img src="../../{{job.9}}" height="40px"
-            style="border: 3px solid lightblue; padding: 0.1em; border-radius: 50%;" alt="user image" />&ensp;{{job.13}}
+        <a href="/user-profile/{{job.0}}/"><img src="{{job.9}}" height="40px"
+                style="border: 3px solid lightblue; padding: 0.1em; border-radius: 50%;"
+                alt="user image" />&ensp;{{job.13}}</a>
         {% else %}
-        <img src="{% static 'others/person.svg' %}" height="32px" style="border-radius: 50%;"
-            alt="user image" />&ensp;{{job.13}}
+        <a href="/user-profile/{{job.0}}/"><img src="{% static 'others/person.svg' %}" height="32px"
+                style="border-radius: 50%;" alt="user image" />&ensp;{{job.13}}</a>
         {% endif %}
     </div>
 </div>

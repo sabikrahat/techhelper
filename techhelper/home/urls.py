@@ -20,4 +20,5 @@ urlpatterns = [
     path('delete-question/<token>/', views.deletequestion, name='delete-question'),
     path('delete-job/<token>/', views.deletejob, name='delete-job'),
     path('delete-internship/<token>/', views.deleteinternship, name='delete-internship'),
+    path('user-profile/<token>/', views.userprofile, name='user-profile'),
 ]

@@ -10,4 +10,5 @@ urlpatterns = [
     path('edit-profile', views.edit_profile, name='edit-profile'),
     path('reset-password', views.reset_password, name='reset-password'),
     path('change-password/<token>/', views.change_password, name='change-password'),
+    path('throwtologin', views.throwtologin, name='throwtologin'),
 ]

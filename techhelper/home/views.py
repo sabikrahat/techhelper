@@ -512,3 +512,8 @@ def deleteinternship(request, token):
         messages.error(request, "An error occurred. Try again.")
         return redirect('/')
     return redirect('/')
+
+
+def userprofile(request, token):
+    user = UserRegister.objects.get(id=token)
+    return render(request, 'user-profile.html', {'user': user})
