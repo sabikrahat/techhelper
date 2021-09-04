@@ -86,14 +86,14 @@
                         <a class="nav-link" href="{% url 'internship' %}"><b>👨‍🎓 Internship</b></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'feedback' %}"><b>☎️ Feedback</b></a>
+                        <a class="nav-link" href="{% url 'feedback' %}" target="_blank"><b>☎️ Feedback</b></a>
                     </li>
                 </ul>
                 {% if request.session.email %}
                 {% if user.username %}
-                <b style="color: green;">&ensp;|&nbsp;{{user.username}}&nbsp;|&ensp;</b>
+                <b style="color: rgb(13, 184, 13);">&ensp;|&nbsp;{{user.username}}&nbsp;|&ensp;</b>
                 {% else %}
-                <b style="color: green;">&ensp;|&nbsp;{{request.session.email}}&nbsp;|&ensp;</b>
+                <b style="color: rgb(13, 184, 13);">&ensp;|&nbsp;{{request.session.email}}&nbsp;|&ensp;</b>
                 {% endif %}
                 {% endif %}
                 <div class="nav-item dropdown">
@@ -225,8 +225,8 @@
                                 style="border: 3px solid lightblue; padding: 0.1em; border-radius: 50%;"
                                 alt="user image" />&ensp;{{qstn.13}}</a>
                         {% else %}
-                        <a href="/user-profile/{{qstn.0}}/"><img src="{% static 'others/person.svg' %}"
-                                height="32px" style="border-radius: 50%;" alt="user image" />&ensp;{{qstn.13}}</a>
+                        <a href="/user-profile/{{qstn.0}}/"><img src="{% static 'others/person.svg' %}" height="32px"
+                                style="border-radius: 50%;" alt="user image" />&ensp;{{qstn.13}}</a>
                         {% endif %}
                     </div>
                 </div>
@@ -272,23 +272,27 @@
     <br>
 
     <!-- Footer -->
-    <hr>
-    <footer class="footer mt-auto py-3 text-muted text-center text-small ">
-        <div class="container">
-            <p class="mb-1"><img src="{% static 'images/techhelper.png' %}" height="30px"
-                    alt="techhelper image" />&ensp;Tech
-                Helper</p>
-            <br>
-            <p class="mb-1">&copy; 2021 <a href="https://sabikrahat.github.io" target="_blank">Coding Table</a> - All
-                rights
-                reserved </p>
-            <ul class="list-inline">
-                <li class="list-inline-item"><a href="{% url 'privacy-policy' %}">Privacy Policy</a></li>
-                <li class="list-inline-item"><a href="{% url 'terms-and-conditions' %}">Terms & Conditions</a></li>
-                <li class="list-inline-item"><a href="{% url 'feedback' %}">Support</a></li>
-            </ul>
-        </div>
-    </footer>
+    <div class="container-footer">
+        <footer class="footer mt-auto py-3 text-muted text-center text-small ">
+            <div class="container">
+                <p class="mb-1"><img src="{% static 'images/techhelper.png' %}" height="30px"
+                        alt="techhelper image" />&ensp;Tech
+                    Helper</p>
+                <br>
+                <p class="mb-1">&copy; 2021 <a href="https://sabikrahat.github.io" target="_blank">Coding Table</a> -
+                    All
+                    rights
+                    reserved </p>
+                <ul class="list-inline">
+                    <li class="list-inline-item"><a href="{% url 'privacy-policy' %}" target="_blank">Privacy Policy</a>
+                    </li>
+                    <li class="list-inline-item"><a href="{% url 'terms-and-conditions' %}" target="_blank">Terms &
+                            Conditions</a></li>
+                    <li class="list-inline-item"><a href="{% url 'feedback' %}" target="_blank">Support</a></li>
+                </ul>
+            </div>
+        </footer>
+    </div>
 
     <!-- Optional JavaScript; choose one of the two! -->
 

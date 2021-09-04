@@ -3,7 +3,7 @@
 {% block title %}View Question{% endblock %}
 {% block content %}
 {% load static %}
-
+<h6></h6>
 <h3>View Post</h3>
 <hr>
 {% if messages %}
@@ -24,7 +24,7 @@
 <div class="row">
     {% if qstn.6 == request.session.email %}
     <div class="col-9">
-        <h2>{{qstn.14}}</h2>
+        <h4>{{qstn.14}}</h4>
     </div>
     <div class="col-2"><button type="button" class="btn btn-light disabled"
             style="margin-bottom: 0.3em;">&ensp;{{qstn.16}}&ensp;</button>
@@ -45,12 +45,12 @@
 <div class="row">
     <div class="col-9">
         {% if qstn.9 %}
-        <img src="../../{{qstn.9}}" height="40px"
-            style="border: 3px solid lightblue; padding: 0.1em; border-radius: 50%;"
-            alt="user image" />&ensp;<b>{{qstn.13}}</b>
+        <a href="/user-profile/{{qstn.0}}/"><img src="../../{{qstn.9}}" height="40px"
+                style="border: 3px solid lightblue; padding: 0.1em; border-radius: 50%;"
+                alt="user image" />&ensp;{{qstn.13}}</a>
         {% else %}
-        <img src="{% static 'others/person.svg' %}" height="40px" style="border-radius: 50%;"
-            alt="user image" />&ensp;<b>{{qstn.13}}</b>
+        <a href="/user-profile/{{qstn.0}}/"><img src="{% static 'others/person.svg' %}" height="40px"
+                style="border-radius: 50%;" alt="user image" />&ensp;{{qstn.13}}</a>
         {% endif %}
     </div>
     <div class="col-3" style="text-align: end;">
@@ -89,17 +89,17 @@
     <div class="row" style="align-items: center; margin-left: 1em; margin-right: 1.3em;">
         <div class="col-1">
             {% if cmnt.9 %}
-            <img src="../../{{cmnt.9}}" height="43px"
-                style="border: 3px solid lightblue; padding: 0.1em; border-radius: 50%; margin-left: 1.6em;"
-                alt="user image" />
+            <a href="/user-profile/{{cmnt.0}}/"><img src="../../{{cmnt.9}}" height="43px"
+                    style="border: 3px solid lightblue; padding: 0.1em; border-radius: 50%; margin-left: 1.6em;"
+                    alt="user image" /></a>
             {% else %}
-            <img src="{% static 'others/person.svg' %}" height="43px"
-                style="border: 3px solid lightblue; padding: 0.1em; border-radius: 50%; margin-left: 1.6em;"
-                alt="user image" />
+            <a href="/user-profile/{{cmnt.0}}/"><img src="{% static 'others/person.svg' %}" height="43px"
+                    style="border: 3px solid lightblue; padding: 0.1em; border-radius: 50%; margin-left: 1.6em;"
+                    alt="user image" /></a>
             {% endif %}
         </div>
         <div class="col-7" style="text-align: start;">
-            <div><b>{{cmnt.13}}</b></div>
+            <div><a href="/user-profile/{{cmnt.0}}/"><b>{{cmnt.13}}</b></a></div>
             <div>{{cmnt.15}}</div>
         </div>
         <div class="col-4" style="text-align: end;">

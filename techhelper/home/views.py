@@ -515,5 +515,9 @@ def deleteinternship(request, token):
 
 
 def userprofile(request, token):
-    user = UserRegister.objects.get(id=token)
-    return render(request, 'user-profile.html', {'user': user})
+    suser = UserRegister.objects.get(id=token)
+    try:
+        user = UserRegister.objects.get(email=request.session['email'])
+        return render(request, 'user-profile.html', {'user': user, 'suser': suser})
+    except:
+        return render(request, 'user-profile.html', {'user': user, 'suser': suser})

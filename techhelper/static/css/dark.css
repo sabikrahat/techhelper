@@ -132,6 +132,31 @@ input[type="text"]:focus {
   color: white;
 }
 
+input[type="email"] {
+  background-color: rgb(52, 58, 64);
+  color: white;
+}
+
+input[type="email"]:focus {
+  background-color: rgb(52, 58, 64);
+  color: white;
+}
+
+input[type="password"] {
+  background-color: rgb(52, 58, 64);
+  color: white;
+}
+
+input[type="password"]:focus {
+  background-color: rgb(52, 58, 64);
+  color: white;
+}
+
+input[type="password"]:required {
+  background-color: rgb(52, 58, 64);
+  color: white;
+}
+
 input[type="text"]:read-only {
   background-color: rgb(52, 58, 64);
   color: white;
@@ -170,4 +195,38 @@ input[type="file"]:focus {
 .dropdown-item:hover {
   background-color: black;
   color: white;
+}
+
+textarea {
+  background-color: rgb(52, 58, 64);
+  color: white;
+}
+
+textarea:focus {
+  background-color: rgb(52, 58, 64);
+  color: white;
+}
+
+.form-control {
+  background-color: rgb(52, 58, 64);
+  color: white;
+}
+
+.contact-form {
+  background-color: black;
+  color: white;
+}
+
+.form-control:focus {
+  background-color: rgb(52, 58, 64);
+  color: white;
+}
+
+.container-footer {
+  background-color: rgb(15, 15, 15);
+  color: whitesmoke;
+}
+
+.register-right {
+  background: black;
 }

@@ -2,6 +2,11 @@
 
 <!-- Custom Style CSS-->
 <style>
+    body {
+        font-family: 'Montserrat', sans-serif;
+        transition: 2s;
+    }
+
     .register {
         background: -webkit-linear-gradient(left, #3931af, #00c6ff);
         margin-top: 3%;
@@ -28,7 +33,7 @@
     }
 
     .register-right {
-        background: #f8f9fa;
+        border: 5px solid lightblue;
         border-top-left-radius: 10% 50%;
         border-bottom-left-radius: 10% 50%;
     }
@@ -123,6 +128,7 @@
     }
 </style>
 
+
 {% extends 'index.html' %}
 {% block title %}Register - Tech Helper{% endblock %}
 {% block content %}
@@ -204,11 +210,6 @@
                                         required />
                                 </div>
                                 <span id="mess"></span>
-                                <div class="form-group">
-                                    <!-- <input type="text" class="form-control" name="username"
-                                        placeholder="Username (Will auto generated)"
-                                        value="Username (Will auto generated)" readonly /> -->
-                                </div>
                                 <input type="submit" class="btnRegister" value="Register" name="register" />
                             </div>
                             <div><br /></div>
