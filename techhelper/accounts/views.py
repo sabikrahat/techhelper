@@ -32,8 +32,7 @@ def signup(request):
             saveRecord.password = make_password(request.POST.get('password'))
 
             if saveRecord.isExists():
-                messages.error(request, t_email +
-                               " email address already registered!")
+                messages.error(request, t_email + " email address already registered!")
                 return render(request, 'account/signup.html', context)
             else:
                 saveRecord.save()

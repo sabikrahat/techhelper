@@ -49,4 +49,12 @@ Phase -2:
 
 	13. Terms & Conditions Page added
 
+Phase -3:
+=========>
+
+	# rest of the features done in this phase.....
+
+
+
+
 	
