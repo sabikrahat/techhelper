@@ -1,4 +1,5 @@
-from django.http import request
+from techhelper.helpers import send_comment_mail
+from techhelper.helpers import send_forget_password_mail
 from home.models import QstnCmnt
 from home.models import UserInternships
 from home.models import UserJobs
@@ -306,6 +307,8 @@ def viewquestion(request, token):
                     saveCmnt.cmnt = cmnt
 
                     saveCmnt.save()
+
+                    send_comment_mail(questions[0][6], user.firstName + ' ' + user.lastName, token)
 
                     if user.id != questions[0][0]:
                         user.point = str(int(user.point) + 10)
