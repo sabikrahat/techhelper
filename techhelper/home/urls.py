@@ -21,4 +21,7 @@ urlpatterns = [
     path('delete-job/<token>/', views.deletejob, name='delete-job'),
     path('delete-internship/<token>/', views.deleteinternship, name='delete-internship'),
     path('user-profile/<token>/', views.userprofile, name='user-profile'),
+    path('point-purchase', views.pointpurchase, name='point-purchase'),
+    path('admin-panel', views.adminpanel, name='admin-panel'),
+    path('point-add/<token>/', views.pointadd, name='point-add'),
 ]

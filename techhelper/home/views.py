@@ -1,14 +1,16 @@
-from techhelper.helpers import send_comment_mail
-from techhelper.helpers import send_forget_password_mail
+
+from techhelper.helpers import send_comment_mail, send_point_purchase_mail, send_point_success_mail
 from home.models import QstnCmnt
 from home.models import UserInternships
 from home.models import UserJobs
 from home.models import UserContact
 from home.models import UserQuestion
+from home.models import BkashPayment
 from django.contrib import messages
 from accounts.models import UserRegister
 from django.shortcuts import redirect, render
 from django.db import connection
+
 
 # Create your views here.
 
@@ -308,7 +310,8 @@ def viewquestion(request, token):
 
                     saveCmnt.save()
 
-                    send_comment_mail(questions[0][6], user.firstName + ' ' + user.lastName, token)
+                    send_comment_mail(
+                        questions[0][6], user.firstName + ' ' + user.lastName, token)
 
                     if user.id != questions[0][0]:
                         user.point = str(int(user.point) + 10)
@@ -524,3 +527,86 @@ def userprofile(request, token):
         return render(request, 'user-profile.html', {'user': user, 'suser': suser})
     except:
         return render(request, 'user-profile.html', {'user': user, 'suser': suser})
+
+
+def pointpurchase(request):
+    try:
+        user = UserRegister.objects.get(email=request.session['email'])
+
+        if request.method == 'POST':
+            if request.POST.get('inputName') and request.POST.get('inputUsername') and request.POST.get('inputEmail') and request.POST.get('bkashNumber') and request.POST.get('bkashTransaction') and request.POST.get('inputPoint'):
+
+                savePayment = BkashPayment()
+
+                savePayment.name = request.POST.get('inputName')
+                savePayment.username = request.POST.get('inputUsername')
+                savePayment.email = request.POST.get('inputEmail')
+                savePayment.status = 'Pending'
+                savePayment.bkashNumber = request.POST.get('bkashNumber')
+                savePayment.bkashTransaction = request.POST.get(
+                    'bkashTransaction')
+                savePayment.point = request.POST.get('inputPoint')
+
+                savePayment.save()
+                send_point_purchase_mail(request.POST.get('inputName'))
+                messages.success(
+                    request, "Your point purchase request has been submitted. We will confirm you by email within an hour.")
+                return render(request, 'point-purchase.html', {'user': user})
+        else:
+            return render(request, 'point-purchase.html', {'user': user})
+    except:
+        messages.error(request, 'You need to login first')
+        return redirect('login')
+
+
+def adminpanel(request):
+    try:
+        user = UserRegister.objects.get(email=request.session['email'])
+
+        if user.email == 'techhelper72428@gmail.com':
+            pendings = BkashPayment.objects.raw(
+                'SELECT * FROM bkash_payment WHERE STATUS = %s', ['Pending'])
+            return render(request, 'admin-panel.html', {'user': user, 'pendings': pendings})
+        else:
+            messages.error(request, "Restricted! Only admin users can access.")
+            return redirect('/', {'user': user})
+    except:
+        messages.error(request, 'You need to login first')
+        return redirect('login')
+
+
+def pointadd(request, token):
+    cursor = connection.cursor()
+    cursor.execute(
+        'SELECT * FROM app_users au, bkash_payment bp WHERE au.email = bp.email and bp.id = %s ORDER BY bp.id DESC', [token])
+
+    puser = cursor.fetchall()
+    cursor.close()
+    try:
+        user = UserRegister.objects.get(email=request.session['email'])
+
+        if user.email == 'techhelper72428@gmail.com':
+
+            tuser = UserRegister.objects.get(email=puser[0][14])
+
+            tuser.point = str(int(tuser.point) + int(puser[0][17]))
+            tuser.save()
+
+            pend = BkashPayment.objects.get(id=token)
+            pend.status = "Done"
+            pend.save()
+
+            send_point_success_mail(puser[0][14])
+
+            pendings = BkashPayment.objects.raw(
+                'SELECT * FROM bkash_payment WHERE STATUS = %s', ['Pending'])
+
+            messages.success(request, "Point added to " +
+                             puser[0][12] + " user successfully.")
+            return redirect('/', {'user': user})
+        else:
+            messages.error(request, "Restricted! Only admin users can access.")
+            return redirect('/', {'user': user})
+    except:
+        messages.error(request, 'You need to login first')
+        return redirect('login')

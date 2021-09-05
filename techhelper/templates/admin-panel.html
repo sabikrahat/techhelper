@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+{% extends 'index.html' %}
+{% block title %}Admin Panel{% endblock %}
+{% block content %}
+{% load static %}
+<h4></h4>
+<h3>Admin Panel</h3>
+<hr>
+{% if messages %}
+{% for result in messages %}
+{% if result.tags == "error" %}
+<div class="alert alert-danger">
+    {{ result }}
+</div>
+{% else %}
+<div class="alert alert-success">
+    {{ result }}
+</div>
+{% endif %}
+{% endfor %}
+{% endif %}
+<br>
+<h4>Pending Point Requests</h4>
+<br>
+<div style="margin-bottom: 1em; margin-top: 1em;">
+    <form method="POST">
+        {% csrf_token %}
+        <table class="table table-bordered" style="color: rgb(13, 184, 13);">
+            <thead>
+                <tr>
+                    <th scope="col" style="color: rgb(13, 184, 13);">id</th>
+                    <th scope="col" style="color: rgb(13, 184, 13);">Email</th>
+                    <th scope="col" style="color: rgb(13, 184, 13);">Username</th>
+                    <th scope="col" style="color: rgb(13, 184, 13);">Bkash Number</th>
+                    <th scope="col" style="color: rgb(13, 184, 13);">Transaction ID</th>
+                    <th scope="col" style="color: rgb(13, 184, 13);">Point Add</th>
+                    <th scope="col" style="color: rgb(13, 184, 13);">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for pending in pendings %}
+                <tr>
+                    <th style="color: rgb(13, 184, 13);" scope="row">{{pending.id}}</th>
+                    <td style="color: rgb(13, 184, 13);">{{pending.email}}</td>
+                    <td style="color: rgb(13, 184, 13);">{{pending.username}}</td>
+                    <td style="color: rgb(13, 184, 13);">{{pending.bkashNumber}}</td>
+                    <td style="color: rgb(13, 184, 13);">{{pending.bkashTransaction}}</td>
+                    <td style="color: rgb(13, 184, 13);">{{pending.point}}</td>
+                    <td style="color: rgb(13, 184, 13);"><button type="button" class="btn btn-outline-success"
+                            onclick="location.href='/point-add/{{pending.id}}/'">&nbsp;{{pending.status}}&nbsp;</button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </form>
+</div>
+
+{% endblock %}

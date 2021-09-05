@@ -32,7 +32,8 @@ def signup(request):
             saveRecord.password = make_password(request.POST.get('password'))
 
             if saveRecord.isExists():
-                messages.error(request, t_email + " email address already registered!")
+                messages.error(request, t_email +
+                               " email address already registered!")
                 return render(request, 'account/signup.html', context)
             else:
                 saveRecord.save()
@@ -104,27 +105,20 @@ def edit_profile(request):
         user = UserRegister.objects.get(email=request.session['email'])
         if request.POST.get('editFirstName') and request.POST.get('editLastName') and request.POST.get('editPhoneNumber') and request.POST.get('editUsername') and request.POST.get('editExpert'):
 
-            updateRecord = UserRegister()
-
-            updateRecord.id = user.id
-            updateRecord.firstName = request.POST.get('editFirstName')
-            updateRecord.lastName = request.POST.get('editLastName')
-            updateRecord.phoneNumber = request.POST.get('editPhoneNumber')
-            updateRecord.email = request.POST.get('editEmail')
-            updateRecord.username = request.POST.get('editUsername')
-            updateRecord.expert = request.POST.get('editExpert')
-            updateRecord.password = user.password
-            updateRecord.point = user.point
+            user.firstName = request.POST.get('editFirstName')
+            user.lastName = request.POST.get('editLastName')
+            user.phoneNumber = request.POST.get('editPhoneNumber')
+            user.username = request.POST.get('editUsername')
+            user.expert = request.POST.get('editExpert')
 
             if len(request.FILES) != 0:
-                updateRecord.image = request.FILES['editPhoto']
+                user.image = request.FILES['editPhoto']
 
-            updateRecord.save()
+            user.save()
             messages.success(
                 request, "User details updated successfully...!")
 
             return redirect('edit-profile')
-
     else:
         try:
             user = UserRegister.objects.get(email=request.session['email'])

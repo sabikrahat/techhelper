@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+{% extends 'index.html' %}
+{% block title %}Point Purchase{% endblock %}
+{% block content %}
+{% load static %}
+<h4></h4>
+<h3>Purchase Point by Bkash</h3>
+<hr>
+
+{% if messages %}
+{% for result in messages %}
+<div>&ensp;</div>
+{% if result.tags == "error" %}
+<div class="alert alert-danger">
+    {{ result }}
+</div>
+{% else %}
+<div class="alert alert-success">
+    {{ result }}
+</div>
+{% endif %}
+{% endfor %}
+{% endif %}
+
+<div class="row" style="align-items: center;">
+    <div class="col-4"></div>
+    <div class="col-4"><img src="{% static 'images/bkash.png' %}" height="100px" alt="bkash-payment-logo"></div>
+    <div class="col-4"></div>
+</div>
+<div style="white-space: pre-wrap;">
+বিকাশ পেমেন্ট করুন
+
+সেন্ড মানি
+
+প্রোডাক্ট ও সার্ভিসসেন্ড মানি
+
+সেন্ড মানি সেবার মাধ্যমে আপনি আপনার বিকাশ একাউন্ট থেকে আরেকটি বিকাশ একাউন্টে টাকা পাঠাতে পারেন যেকোন সময়। সেন্ড মানি
+করতে নিচের ধাপগুলো অনুসরণ করুন-
+
+১। *২৪৭# ডায়াল করে বিকাশ মোবাইল মেন্যুতে যান
+
+২। “সেন্ড মানি” সিলেক্ট করুন
+
+৩। আমাদের বিকাশ নম্বরটি লিখুন (01647629698)
+
+৪। আপনি যে পরিমাণ টাকা পাঠাতে চান সেই পরিমাণ টি লিখুন
+
+৫। লেনদেনের একটি রেফারেন্স/তথ্যসূত্র দিন (একটি শব্দের বেশি ব্যবহার করবেন না, স্পেস এবং বিশেষ অক্ষর এর ব্যবহার এড়িয়ে চলুন)
+
+৬। আপনার বিকাশ মোবাইল মেন্যু পিনটি দিয়ে লেনদেনটি সম্পন্ন করুন
+
+আপনি এবং প্রাপক দুজনই বিকাশ থেকে কনফার্মেশন মেসেজ পাবেন।
+
+বিকাশ অ্যাপ থেকে ৫০০ টাকা পর্যন্ত 'সেন্ড মানি' করলে কোনো চার্জ নেই। *247# ডায়াল করে 'সেন্ড মানি' করলে প্রতি লেনদেনে ৫ টাকা চার্জ প্রযোজ্য হবে।
+
+</div>
+
+<div style="margin-bottom: 1em; margin-top: 1em;">
+    <table class="table table-bordered" style="color: rgb(13, 184, 13);">
+        <thead>
+            <tr>
+                <th scope="col" style="color: rgb(13, 184, 13);">#</th>
+                <th scope="col" style="color: rgb(13, 184, 13);">Point</th>
+                <th scope="col" style="color: rgb(13, 184, 13);">Price</th>
+                <th scope="col" style="color: rgb(13, 184, 13);">Total (with charge +1.8%)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th style="color: rgb(13, 184, 13);" scope="row">1</th>
+                <td style="color: rgb(13, 184, 13);">50 points</td>
+                <td style="color: rgb(13, 184, 13);">5/- tk</td>
+                <td style="color: rgb(13, 184, 13);">5.09/- tk</td>
+            </tr>
+            <tr>
+                <th style="color: rgb(13, 184, 13);" scope="row">2</th>
+                <td style="color: rgb(13, 184, 13);">100 points</td>
+                <td style="color: rgb(13, 184, 13);">10/- tk</td>
+                <td style="color: rgb(13, 184, 13);">10.18/- tk</td>
+            </tr>
+            <tr>
+                <th style="color: rgb(13, 184, 13);" scope="row">3</th>
+                <td style="color: rgb(13, 184, 13);">150 points</td>
+                <td style="color: rgb(13, 184, 13);">15/- tk</td>
+                <td style="color: rgb(13, 184, 13);">15.27/- tk</td>
+            </tr>
+            <tr>
+                <th style="color: rgb(13, 184, 13);" scope="row">4</th>
+                <td style="color: rgb(13, 184, 13);">200 points</td>
+                <td style="color: rgb(13, 184, 13);">20/- tk</td>
+                <td style="color: rgb(13, 184, 13);">20.36/- tk</td>
+            </tr>
+            <tr>
+                <th style="color: rgb(13, 184, 13);" scope="row">5</th>
+                <td style="color: rgb(13, 184, 13);">250 points</td>
+                <td style="color: rgb(13, 184, 13);">25/- tk</td>
+                <td style="color: rgb(13, 184, 13);">25.45/- tk</td>
+            </tr>
+            <tr>
+                <th style="color: rgb(13, 184, 13);" scope="row">6</th>
+                <td style="color: rgb(13, 184, 13);">300 points</td>
+                <td style="color: rgb(13, 184, 13);">30/- tk</td>
+                <td style="color: rgb(13, 184, 13);">30.63/- tk</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<form method="POST">
+    {% csrf_token %}
+    <div class="form-group row">
+        <label for="inputName" class="col-sm-2 col-form-label"><b>Your Name</b></label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="inputName" placeholder="e.g: Alice Doe" name="inputName"
+                required value="{{user.firstName}}&nbsp;{{user.lastName}}">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="inputUsername" class="col-sm-2 col-form-label"><b>Your Username</b></label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="inputUsername" placeholder="e.g: Alice Doe" name="inputUsername"
+                required value="{{user.username}}">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="inputEmail" class="col-sm-2 col-form-label"><b>Your Email</b></label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="inputEmail" placeholder="e.g: example@gmail.com"
+                name="inputEmail" required value="{{user.email}}">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="inputBkash" class="col-sm-2 col-form-label"><b>Your Bkash Number</b></label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="inputBkash" placeholder="e.g: 01xxxxxxxxx" name="bkashNumber"
+                required>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="inputTransaction" class="col-sm-2 col-form-label"><b>Bkash Transaction ID</b></label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="inputTransaction" placeholder="e.g: xxxxxxxxxxxx"
+                name="bkashTransaction" required>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="inputPoint" class="col-sm-2 col-form-label"><b>Points</b></label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="inputPoint" placeholder="e.g: 123 points"
+                name="inputPoint" required>
+        </div>
+    </div>
+
+    <div>&ensp;</div>
+
+    <button type="submit" class="btn btn-outline-primary" name="payment">Request for Point</button>
+
+</form>
+{% endblock %}

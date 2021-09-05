@@ -70,3 +70,16 @@ class QstnCmnt(models.Model):
 
     class Meta:
         db_table = 'questions_comments'
+
+class BkashPayment(models.Model):
+    name = models.CharField(max_length=50)
+    username = models.CharField(max_length=20)
+    email = models.CharField(max_length=50)
+    bkashNumber = models.CharField(max_length=20)
+    bkashTransaction = models.CharField(max_length=512)
+    point = models.CharField(max_length=10)
+    status = models.CharField(max_length=20)
+    created_at = models.DateTimeField(default=datetime.now)
+
+    class Meta:
+        db_table = 'bkash_payment'

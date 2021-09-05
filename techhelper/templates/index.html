@@ -105,7 +105,7 @@
                         {% if request.session.email %}
                         {% if user.image %}
                         <li><a class="dropdown-item" href="{% url 'profile' %}"><img src="../../{{user.image}}"
-                                    height="45px"
+                                    height="40px"
                                     style="border: 3px solid lightblue; padding: 0.1em; border-radius: 50%;"
                                     alt="techhelper image" />&ensp;{{user.firstName}}&nbsp;{{user.lastName}}</a>
                         </li>
@@ -119,11 +119,16 @@
                         <li>
                             <hr class="dropdown-divider" />
                         </li>
-                        <li><a class="dropdown-item" href="{% url 'profile' %}">View Profile</a></li>
-                        <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+                        <li><a class="dropdown-item" href="{% url 'profile' %}">👨🏻‍💻 View Profile</a></li>
+                        {% if request.session.email == 'techhelper72428@gmail.com' %}
+                        <li><a class="dropdown-item" href="{% url 'admin-panel' %}">🛠 Admin Panel</a></li>
+                        {% endif %}
+                        <li><a class="dropdown-item" href="{% url 'point-purchase' %}">💰 Point Purchase</a></li>
+                        <li><a class="dropdown-item" href="{% url 'logout' %}">🔓 Logout</a></li>
+
                         {% else %}
-                        <li><a class="dropdown-item" href="{% url 'signup' %}">Create Account</a></li>
-                        <li><a class="dropdown-item" href="{% url 'login' %}">Log in</a></li>
+                        <li><a class="dropdown-item" href="{% url 'signup' %}">🔑 Create Account</a></li>
+                        <li><a class="dropdown-item" href="{% url 'login' %}">🔐 Log in</a></li>
                         {% endif %}
                     </ul>
                 </div>
